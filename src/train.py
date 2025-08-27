@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 from ta.trend import MACD
+from datetime import datetime
 from ta.momentum import RSIIndicator
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
@@ -40,5 +41,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-joblib.dump(model, "models/model.pkl")
+today_str = datetime.today().strftime('%Y-%m-%d')
+model_filename = f"models/model_{today_str}.pkl"
+
+joblib.dump(model, model_filename)
 print("Model saved to models/model.pkl")
