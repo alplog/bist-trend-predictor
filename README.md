@@ -1,7 +1,7 @@
 # BIST Trend Predictor
 
 📈 Predict next-day trend (up/down) of Borsa Istanbul (BIST) stocks using ML and technical indicators.
-
+Threshold: Overbought = 70, Oversold = 30
 ---
 
 ## 🎯 Project Goal
@@ -25,17 +25,17 @@ This project uses stock price data and technical analysis indicators (RSI, MACD,
 
 ## 📁 Project Structure
 
-bist-trend-predictor/
-│
-├── data/ # raw stock data (ignored in git)
-├── models/ # saved models (ignored in git)
-├── notebooks/ # Jupyter notebooks (EDA, training)
-├── src/ # scripts and utilities
-├── tests/ # unit tests
-├── requirements.txt # dependencies
-├── .gitignore
-└── README.md
----
+## Project Structure
+
+- **data/** – raw stock data (ignored in git)  
+- **models/** – saved models (ignored in git)  
+- **notebooks/** – Jupyter notebooks (EDA, training)  
+- **src/** – scripts and utilities  
+- **tests/** – unit tests  
+- **requirements.txt** – dependencies  
+- **.gitignore**  
+- **README.md**
+
 
 ## 🚀 How to Run
 
