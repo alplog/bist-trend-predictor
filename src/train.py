@@ -11,6 +11,8 @@ from sklearn.model_selection import train_test_split
 ticker = "ASELS.IS"
 start_date = "2022-01-01"
 
+today_str = datetime.today().strftime('%Y-%m-%d')
+
 print(f"Downloading data for {ticker} from {start_date}...")
 df = yf.download(ticker, start=start_date)
 
@@ -31,7 +33,7 @@ df_model = df[["Close", "rsi", "macd", "macd_signal", "macd_diff"]].copy()
 df_model["target"] = df_model["Close"].shift(-1)
 df_model.dropna(inplace=True)
 
-df_model.to_csv("data/df_model.csv")
+df_model.to_csv(f"data/df_model_{today_str}.csv")
 
 X = df_model.drop("target", axis=1)
 y = df_model["target"]
@@ -41,8 +43,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-today_str = datetime.today().strftime('%Y-%m-%d')
 model_filename = f"models/model_{today_str}.pkl"
 
 joblib.dump(model, model_filename)
-print("Model saved to models/model.pkl")
+print("Model saved to /models")
