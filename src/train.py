@@ -19,17 +19,23 @@ df = yf.download(ticker, start=start_date)
 if isinstance(df.columns, pd.MultiIndex):
     df.columns = df.columns.get_level_values(0)
 
+#RSI
 rsi_calc = RSIIndicator(close=df["Close"].squeeze())
 df["rsi"] = rsi_calc.rsi()
 
+#MACD
 macd_calc = MACD(close=df["Close"].squeeze())
 df["macd"] = macd_calc.macd()
 df["macd_signal"] = macd_calc.macd_signal()
 df["macd_diff"] = macd_calc.macd_diff()
 
+#SMA
+df["sma_10"] = df["Close"].rolling(window=10).mean()
+df["sma_50"] = df["Close"].rolling(window=10).mean()
+
 df.dropna(inplace=True)
 
-df_model = df[["Close", "rsi", "macd", "macd_signal", "macd_diff"]].copy()
+df_model = df[["Close", "rsi", "macd", "macd_signal", "macd_diff", "sma_10", "sma_50"]].copy()
 df_model["target"] = df_model["Close"].shift(-1)
 df_model.dropna(inplace=True)
 

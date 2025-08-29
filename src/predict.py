@@ -1,9 +1,20 @@
-import pandas as pd
+import os
 import joblib
+import pandas as pd
 from datetime import datetime, timedelta
+from pathlib import Path
 
-model = joblib.load("models/model.pkl")
-df_model = pd.read_csv("data/df_model.csv", index_col=0)
+data_name = input("Enter the data csv file name (e.g., df_model_2025-08-28.csv): ")
+data_path = f"data/{data_name}" #FIX!!!!!!!!!!!
+
+model_name = input("Enter the model filename (e.g., model_2025-08-28.pkl): ").strip()
+model_path = f"models/{model_name}"
+
+if not model_path.exists():
+    raise FileNotFoundError(f"Model file not found: {model_path}")
+
+model = joblib.load(model_path)
+df_model = pd.read_csv(data_path, index_col=0)
 
 X = df_model.drop("target", axis=1)
 last_row = X.iloc[[-1]]
